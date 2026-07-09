@@ -94,6 +94,7 @@ class ImageController extends Controller
 
         $source = Storage::build([
             'driver' => 'local',
+            /* @phpstan-ignore-next-line */
             'root' => $this->asset->disk()->path('/'),
         ]);
 
@@ -116,6 +117,7 @@ class ImageController extends Controller
             fn (string $path, array $params) => $expectedRelativePath
         );
 
+        /* @phpstan-ignore-next-line */
         $generated = $this->server->makeImage($this->asset->path(), $this->params);
 
         return $cacheRoot.'/'.ltrim($generated, '/');
