@@ -94,7 +94,7 @@ class ImageController extends Controller
 
         $source = Storage::build([
             'driver' => 'local',
-            'root' => public_path(),
+            'root' => $this->asset->disk()->path('/'),
         ]);
 
         $cacheRoot = $this->getPublicCacheRoot();
@@ -105,7 +105,7 @@ class ImageController extends Controller
         ]);
 
         $this->server->setSource($source->getDriver());
-        $this->server->setSourcePathPrefix('/');
+        $this->server->setSourcePathPrefix('');
 
         $this->server->setCache($cache->getDriver());
         $this->server->setCachePathPrefix('');
@@ -116,7 +116,7 @@ class ImageController extends Controller
             fn (string $path, array $params) => $expectedRelativePath
         );
 
-        $generated = $this->server->makeImage($this->asset->url(), $this->params);
+        $generated = $this->server->makeImage($this->asset->path(), $this->params);
 
         return $cacheRoot.'/'.ltrim($generated, '/');
     }
