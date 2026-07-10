@@ -211,7 +211,7 @@ class ImageControllerTest extends TestCase
     public function it_returns_404_when_asset_exists_but_file_is_missing(): void
     {
         $asset = $this->uploadTestAsset('upload_404.png');
-        @unlink($this->assetPath('upload_404.png'));
+        @unlink($asset->resolvedPath());
         $signatureFactory = new Signature(config('app.key'));
 
         $params = [
