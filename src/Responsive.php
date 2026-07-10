@@ -96,7 +96,7 @@ class Responsive
             $srcsetParts[$format] = [];
 
             foreach (self::getWidths() as $width) {
-                $height = $useRatio ? (int) round($width * $useRatio) : null;
+                $height = $useRatio ? (int) round($width / $useRatio) : null;
 
                 $srcset = [
                     'width' => $width,
