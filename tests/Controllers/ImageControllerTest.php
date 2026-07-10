@@ -233,7 +233,7 @@ class ImageControllerTest extends TestCase
             $signature,
             ltrim($asset->url(), '/'),
             '.webp'
-        );
+        )->throw();
     }
 
     #[Test]
