@@ -5,6 +5,7 @@ namespace JustBetter\GlideDirective\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Storage;
+use League\Glide\Filesystem\FileNotFoundException;
 use League\Glide\Server;
 use League\Glide\Signatures\Signature;
 use League\Glide\Signatures\SignatureException;
@@ -115,8 +116,11 @@ class ImageController extends Controller
         $this->server->setCachePathCallable(
             fn (string $path, array $params) => $expectedRelativePath
         );
-
-        $generated = $this->server->makeImage($this->asset->url(), $this->params);
+        try {
+            $generated = $this->server->makeImage($this->asset->url(), $this->params);
+        } catch (FileNotFoundException $e) {
+            return null
+        }
 
         return $cacheRoot.'/'.ltrim($generated, '/');
     }
