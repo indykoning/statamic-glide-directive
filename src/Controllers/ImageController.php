@@ -116,6 +116,7 @@ class ImageController extends Controller
         $this->server->setCachePathCallable(
             fn (string $path, array $params) => $expectedRelativePath
         );
+
         try {
             $generated = $this->server->makeImage($this->asset->url(), $this->params);
         } catch (FileNotFoundException $e) {
