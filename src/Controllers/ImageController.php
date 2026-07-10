@@ -120,7 +120,7 @@ class ImageController extends Controller
         try {
             $generated = $this->server->makeImage($this->asset->url(), $this->params);
         } catch (FileNotFoundException $e) {
-            return null
+            return null;
         }
 
         return $cacheRoot.'/'.ltrim($generated, '/');
