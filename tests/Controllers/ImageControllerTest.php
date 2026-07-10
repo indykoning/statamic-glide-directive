@@ -183,7 +183,7 @@ class ImageControllerTest extends TestCase
             $mock->shouldReceive('setCachePathCallable')->andReturnSelf();
 
             $mock->shouldReceive('makeImage')
-                ->with($asset->url(), [
+                ->with($asset->path(), [
                     'w' => 350,
                     'h' => 500,
                     'fm' => 'jpg',
@@ -272,7 +272,7 @@ class ImageControllerTest extends TestCase
             $mock->shouldReceive('setCachePathCallable')->andReturnSelf();
 
             $mock->shouldReceive('makeImage')
-                ->with($asset->url(), [
+                ->with($asset->path(), [
                     'w' => 350,
                     'h' => 500,
                     'fm' => 'jpg',

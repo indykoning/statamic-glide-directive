@@ -95,7 +95,8 @@ class ImageController extends Controller
 
         $source = Storage::build([
             'driver' => 'local',
-            'root' => public_path(),
+            /* @phpstan-ignore-next-line */
+            'root' => $this->asset->disk()->path('/'),
         ]);
 
         $cacheRoot = $this->getPublicCacheRoot();
@@ -106,7 +107,7 @@ class ImageController extends Controller
         ]);
 
         $this->server->setSource($source->getDriver());
-        $this->server->setSourcePathPrefix('/');
+        $this->server->setSourcePathPrefix('');
 
         $this->server->setCache($cache->getDriver());
         $this->server->setCachePathPrefix('');
@@ -118,7 +119,8 @@ class ImageController extends Controller
         );
 
         try {
-            $generated = $this->server->makeImage($this->asset->url(), $this->params);
+            /* @phpstan-ignore-next-line */
+            $generated = $this->server->makeImage($this->asset->path(), $this->params);
         } catch (FileNotFoundException $e) {
             return null;
         }
